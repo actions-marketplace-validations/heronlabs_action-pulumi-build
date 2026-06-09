@@ -1,0 +1,91 @@
+name: action-pulumi-build
+
+author: Heron Labs
+
+description: Run a Pulumi command against an engine repository, overlaying the caller's stack config, and publish a report.
+
+branding:
+  icon: cloud
+  color: purple
+
+inputs:
+  command:
+    description: Pulumi command to run (e.g. preview, up, destroy, refresh).
+    required: true
+  environment:
+    description: Pulumi stack name to target (e.g. production, sandbox, shared).
+    required: true
+  engine-repo:
+    description: Repository (owner/name) holding the Pulumi engine (program code, package.json, .node-version, pnpm lockfile).
+    required: true
+  engine-ref:
+    description: Git ref (tag, branch, or SHA) of engine-repo to check out.
+    required: true
+  pat:
+    description: GitHub PAT with read access to the engine repository.
+    required: true
+  pulumi-token:
+    description: Pulumi access token (PULUMI_ACCESS_TOKEN) used to authenticate with the Pulumi backend.
+    required: true
+
+outputs:
+  output:
+    description: Raw stdout from the Pulumi command.
+    value: ${{ steps.pulumi.outputs.output }}
+
+runs:
+  using: composite
+  steps:
+    - name: 'Checkout engine'
+      uses: actions/checkout@v6
+      with:
+        repository: ${{ inputs.engine-repo }}
+        ref: ${{ inputs.engine-ref }}
+        token: ${{ inputs.pat }}
+        path: engine
+
+    - name: 'Overlay config onto engine'
+      shell: bash
+      run: bash ${{ github.action_path }}/core/overlay-helm.sh
+
+    - name: 'Expose engine package.json for pnpm setup'
+      shell: bash
+      run: cp engine/package.json ./package.json
+
+    - uses: pnpm/action-setup@v5
+
+    - uses: actions/setup-node@v6
+      with:
+        node-version-file: engine/.node-version
+        cache: 'pnpm'
+        cache-dependency-path: engine/pnpm-lock.yaml
+
+    - name: 'Install dependencies'
+      shell: bash
+      working-directory: engine
+      run: pnpm install --frozen-lockfile
+
+    - uses: pulumi/actions@v6
+      id: pulumi
+      with:
+        command: ${{ inputs.command }}
+        stack-name: ${{ inputs.environment }}
+        work-dir: engine
+      env:
+        PULUMI_ACCESS_TOKEN: ${{ inputs.pulumi-token }}
+
+    - name: 'Write Pulumi report'
+      if: ${{ always() }}
+      shell: bash
+      env:
+        COMMAND: ${{ inputs.command }}
+        ENVIRONMENT: ${{ inputs.environment }}
+        REPORT: ${{ steps.pulumi.outputs.output }}
+      run: bash ${{ github.action_path }}/core/write-report.sh
+
+    - uses: actions/upload-artifact@v4
+      if: ${{ always() }}
+      with:
+        name: pulumi-${{ inputs.environment }}-${{ inputs.command }}
+        path: pulumi-report.txt
+        if-no-files-found: warn
