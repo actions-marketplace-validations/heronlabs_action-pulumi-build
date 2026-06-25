@@ -1,6 +1,6 @@
 {
   "name": "action-pulumi-build",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "GitHub Action to run Pulumi commands against an engine repo with overlaid stack config",
   "private": true,
   "repository": {
