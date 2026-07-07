@@ -1,3 +1,9 @@
+## v2.0.11 (2026-07-07)
+
+### Documentation
+
+* docs: add Architecture section to README (2de5af926ae50d48a8a66b2dd7e734354e0d268c)
+
 ## v2.0.10 (2026-07-07)
 
 ### Miscellaneous Chores
