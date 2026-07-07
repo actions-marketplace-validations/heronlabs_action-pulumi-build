@@ -80,12 +80,19 @@ permissions:
 
 ## Architecture
 
-```mermaid
-graph TD
-    A[action.yml] --> B[core/overlay-helm.sh]
-    B --> C[tests/]
-    C --> D[Makefile]
-    D --> E[version.txt]
+Bash shell scripts wrapped by a composite GitHub Action.
+
+```
+├── action.yml                    # Composite action definition
+├── core/
+│   ├── overlay-helm.sh           # Helm chart overlay
+│   └── write-report.sh           # Pulumi report writer
+├── tests/
+│   ├── __mocks__/
+│   │   └── stub.sh               # Test stub
+│   └── action.bats               # BATS tests
+├── Makefile                      # test (bats) + lint (shellcheck)
+└── version.txt                   # Current version
 ```
 
 ## Notes
