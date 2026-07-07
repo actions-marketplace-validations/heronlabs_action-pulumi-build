@@ -8,6 +8,7 @@
 - [Inputs](#inputs)
 - [Outputs](#outputs)
 - [Permissions](#permissions)
+- [Architecture](#architecture)
 - [How it works](#how-it-works)
 - [Notes](#notes)
 - [License](#license)
@@ -75,6 +76,16 @@ jobs:
 ```yaml
 permissions:
   contents: read
+```
+
+## Architecture
+
+```mermaid
+graph TD
+    A[action.yml] --> B[core/overlay-helm.sh]
+    B --> C[tests/]
+    C --> D[Makefile]
+    D --> E[version.txt]
 ```
 
 ## Notes
