@@ -1,3 +1,9 @@
+## v2.0.16 (2026-07-09)
+
+### Miscellaneous Chores
+
+* other: Merge pull request #23 from heronlabs/chore-dependabot-daily (daa055f9c3781bcc4f6bd136e9dabe917ec156b1)
+
 ## v2.0.15 (2026-07-08)
 
 
