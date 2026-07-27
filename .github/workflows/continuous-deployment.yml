@@ -26,11 +26,11 @@ jobs:
   release:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
 
-      - uses: heronlabs/action-tag-release-build@v6 # v5.0.12
+      - uses: heronlabs/action-tag-release-build@v7 # v5.0.12
         with:
           gh_token: ${{ github.token }}
           semantic: ${{ inputs.semantic }}
