@@ -1,4 +1,4 @@
-# 🏗️ action-pulumi-build — Run Pulumi against engine repo
+# 🏗️ action-pulumi — Run Pulumi against engine repo
 
 [![CI][ci-badge]][ci-url]
 [![License: MIT][license-badge]][license-url]
@@ -46,7 +46,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: heronlabs/action-pulumi-build@v2
+      - uses: heronlabs/action-pulumi@v3
         with:
           command: ${{ inputs.command }}
           environment: ${{ inputs.environment }}
@@ -116,9 +116,9 @@ Composite action with two shell scripts:
 
 MIT
 
-[ci-badge]: https://github.com/heronlabs/action-pulumi-build/actions/workflows/continuous-integration.yml/badge.svg
-[ci-url]: https://github.com/heronlabs/action-pulumi-build/actions/workflows/continuous-integration.yml
+[ci-badge]: https://github.com/heronlabs/action-pulumi/actions/workflows/continuous-integration.yml/badge.svg
+[ci-url]: https://github.com/heronlabs/action-pulumi/actions/workflows/continuous-integration.yml
 [license-badge]: https://img.shields.io/badge/License-MIT-blue.svg
 [license-url]: ./LICENSE
 [marketplace-badge]: https://img.shields.io/badge/GitHub-Marketplace-green.svg
-[marketplace-url]: https://github.com/marketplace/actions/action-pulumi-build
+[marketplace-url]: https://github.com/marketplace/actions/action-pulumi

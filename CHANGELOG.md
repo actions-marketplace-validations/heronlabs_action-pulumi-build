@@ -1,3 +1,25 @@
+## v3.0.8 (2026-10-25)
+
+
+
+## v3.0.7 (2026-10-24)
+
+### Miscellaneous Chores
+
+* other: drop -build suffix from action-tag-release ref (#36) (606967d196795409d262d473a3e8922e02e5bfb6)
+
+## v3.0.6 (2026-10-23)
+
+### Documentation
+
+* docs: rename references to heronlabs/action-pulumi (#35) (2a74433e0f380aef1b4a599592cb962f6ea38d07)
+
+## v3.0.5 (2026-09-17)
+
+### Miscellaneous Chores
+
+* other: remove unused supera.json configuration file (2c89ee24a4c81005a515dcfd171161bebed7a444)
+
 ## v3.0.4 (2026-07-17)
 
 
